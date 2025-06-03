@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-COPY . /sample-php-yii2-app
+COPY . yii2-devops-stack/sample-php-yii2-app
 WORKDIR /sample-php-yii2-app
 RUN docker-php-ext-install pdo pdo_mysql
 # Install Composer
