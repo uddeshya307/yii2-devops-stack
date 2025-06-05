@@ -22,7 +22,7 @@ RUN chown -R www-data:www-data web/assets && \
 
 
 
-RUN composer require yiisoft/yii2-debug
+RUN composer require yiisoft/yii2-debug --dev
 
 RUN apt-get update && apt-get install -y imagemagick libmagickwand-dev && \
     pecl install imagick && \
