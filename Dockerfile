@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y imagemagick libmagickwand-dev && \
     pecl install imagick && \
     docker-php-ext-enable imagick
 
-
+ 
 EXPOSE 9000
 
 CMD ["php-fpm"]
