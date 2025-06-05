@@ -17,7 +17,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
  
-RUN chown -R www-data:www-data web/assets && \ 
+RUN chown -R www-data:www-data web/assets && \  
     chmod -R 775 web/assets
 
 
