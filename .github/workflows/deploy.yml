@@ -38,3 +38,17 @@ jobs:
           IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:$TAG_VERSION
           docker build -t $IMAGE .
           docker push $IMAGE
+          
+          
+      - name: SSH into EC2 and update service
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:${{ env.TAG_VERSION }}
+            docker service update --image ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:{{ env.TAG_VERSION }}  yii2app
+            
+
+
