@@ -47,8 +47,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:${{ env.TAG_VERSION }}
-            docker service update --image ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:{{ env.TAG_VERSION }}  yii2app
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:${{ env.TAG_VERSION }}
+            sudo docker service update --image ${{ secrets.DOCKERHUB_USERNAME }}/yii2-app:${{ env.TAG_VERSION }}  yii2app
             
 
 
