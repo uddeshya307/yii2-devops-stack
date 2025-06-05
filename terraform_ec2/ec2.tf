@@ -13,13 +13,24 @@ resource "aws_instance" "example" {
     delete_on_termination = true
   }
 
+ user_data = <<-EOF
+              #!/bin/bash
+              sudo dnf install -y git
+              sudo dnf install -y ansible
+              echo "Cloning GitHub repository"
+              git clone https://github.com/uddeshya307/ansible-yii2-app-deploy.git /home/ec2-user/ansible-yii2-app-deploy
+              cd /home/ec2-user/ansible-yii2-app-deploy/ansible-playbook
+              ansible-playbook -i inventories/hosts.ini playbook.yml
+              EOF
+
+  
   tags = {
-    Name = "php-yii2-app"
+    Name = ""
   }
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+  name        = "allow_ssh_p"
   description = "Allow SSH inbound traffic"
 
   ingress {
