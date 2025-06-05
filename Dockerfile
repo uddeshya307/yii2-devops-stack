@@ -1,19 +1,31 @@
 FROM php:8.3-fpm
 
-COPY . yii2-devops-stack/sample-php-yii2-app
-WORKDIR /sample-php-yii2-app
-RUN docker-php-ext-install pdo pdo_mysql
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install PHP dependencies
-# RUN composer install --no-dev --optimize-autoloader
-
-# RUN composer install --prefer-dist --no-scripts --no-dev --optimize-autoloader
+WORKDIR /var/www/html
 
 
+COPY . .
+
+
+RUN apt-get update && \
+    apt-get install -y git zip unzip curl && \
+    rm -rf /var/lib/apt/lists/* && \
+    docker-php-ext-install pdo pdo_mysql
+
+
+RUN curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer
+
+
+RUN chown -R www-data:www-data /var/www/html/sample-php-yii2-app/web/assets && \
+    chmod -R 775 /var/www/html/sample-php-yii2-app/web/assets
+
+
+
+RUN cd sample-php-yii2-app && \ 
+    composer require yiisoft/yii2-debug
 
 
 EXPOSE 9000
-#CMD ["php-fpm"]
-# CMD ["php yii serve"]
+
+CMD ["php-fpm"]
