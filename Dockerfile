@@ -1,7 +1,7 @@
 FROM php:8.3-fpm
 
 
-WORKDIR /sample-php-yii2-app
+WORKDIR /var/www/html
 
 
 COPY ./sample-php-yii2-app .
