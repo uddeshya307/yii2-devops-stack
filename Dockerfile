@@ -1,10 +1,10 @@
 FROM php:8.3-fpm
 
 
-WORKDIR /var/www/html
+WORKDIR /sample-php-yii2-app
 
 
-COPY . .
+COPY ./sample-php-yii2-app .
 
 
 RUN apt-get update && \
@@ -17,13 +17,16 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 
-RUN chown -R www-data:www-data /var/www/html/sample-php-yii2-app/web/assets && \
-    chmod -R 775 /var/www/html/sample-php-yii2-app/web/assets
+RUN chown -R www-data:www-data web/assets && \
+    chmod -R 775 web/assets
 
 
 
-RUN cd sample-php-yii2-app && \ 
-    composer require yiisoft/yii2-debug
+RUN composer require yiisoft/yii2-debug
+
+RUN apt-get update && apt-get install -y imagemagick libmagickwand-dev && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick
 
 
 EXPOSE 9000
