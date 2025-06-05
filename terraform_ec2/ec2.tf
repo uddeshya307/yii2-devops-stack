@@ -6,6 +6,7 @@ resource "aws_instance" "example" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  key_name               = aws_key_pair.yii2app_key_pair.key_name
   
   root_block_device {
     volume_size = 30
